@@ -1,0 +1,50 @@
+/*
+   CSS styling examples for the Vaadin app.
+   Visit https://vaadin.com/docs/flow/theme/theming-overview.html and
+   https://vaadin.com/themes/lumo for more information.
+*/
+
+/* Example: CSS class name to center align the content . */
+.centered-content {
+  margin: 0 auto;
+  max-width: 90vw;
+}
+.centered-content-small {
+  margin: 0 auto;
+  max-width: 40vw;
+}
+.centered-text{
+  text-align: center;
+}
+.centered-button {
+  margin: 1.5em auto 0;
+  max-width: 90vh;
+}
+.no-space-above{
+  margin-top: 0;
+  padding-top: 0;
+}
+.height-grid{
+  height: 55vh;
+}
+.form-button-with-padding{
+  margin-top: 1em;
+}
+.id-label{
+  font-size: 0.8em;
+  font-style: italic;
+  margin-right: 2em;
+  color: gray;
+}
+.title{
+  font-size: 2em;
+  font-weight: bold;
+  margin: 1em auto 0.5em;
+  max-width: 95vw;
+  color: #1676F3;
+}
+.vaadin-grid-no-click{
+  cursor: pointer;
+  user-select: none;
+}
+
