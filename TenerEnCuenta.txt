@@ -1,0 +1,20 @@
+- Si estamos trabajando con la máquina virtual por primera vez:
+	1. Generar una clave SSH para Git y añadirla a vuestras claves SSH de Github
+	2. Crear una cuenta de JetBrains:
+		a. Con una cuenta de nueva y tomar la versión de prueba 
+		b. Ó con el correo de la universidad y pidiendo la versión de estudiante
+
+- Opcional y recomendable --> git-flow init (SI VAIS A USAR GITFLOW, si hay dudas: https://docs.google.com/document/d/1S82n2X-WcLKBsMV4SmHaWB5LKchiSrTxsAlZeYcXe1U/edit?usp=sharing)
+
+- Para copiar el repositorio podemos hacerlo (tenemos que tener las claves SSH):
+	1. Crear la carpeta/directorio donde clonar el repositorio (con comando es mkdir <dirección>)
+	2. Moverse al directorio en el git bash (comando cd <dirección>)
+	3. Clonar el repositorio con SSH (git clone <link de SSH del repositorio de github>)
+	4. Cambiar el remoto (el repositorio viene con el remoto en el de "FRAXITO" cuando lo clonamos,
+		tenemos que cambiarlo, se puede comprobar con el comando git remote -v):
+		a. Crear un repositorio nuestro (desde github)
+		b. Copiar el link de SSH del repositorio nuestro
+		c. Desde el main, utilizar el comando git remote set-url origin <link SSH>
+			c.1. Podemos comprobar el cambio con git remote -v
+		d. Pasar el esqueleto inicial al remoto con git push origin main (y develop tmn si lo tenemos)
+
