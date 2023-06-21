@@ -8,8 +8,8 @@ El objetivo de la aplicación, según las especificaciones del enunciado del exa
 
 
 
-
-Versión final de la aplicación:
+Versión actual de la aplicación: v0.6
+Versión final de la aplicación: v1.0
 
 ________________________________________
 

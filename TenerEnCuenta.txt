@@ -5,6 +5,7 @@
 		b. Ó con el correo de la universidad y pidiendo la versión de estudiante
 
 - Opcional y recomendable --> git-flow init (SI VAIS A USAR GITFLOW, si hay dudas: https://docs.google.com/document/d/1S82n2X-WcLKBsMV4SmHaWB5LKchiSrTxsAlZeYcXe1U/edit?usp=sharing)
+			  --> Utilizar Postman o similar para debuggear las funciones del back
 
 - Para copiar el repositorio podemos hacerlo (tenemos que tener las claves SSH):
 	1. Crear la carpeta/directorio donde clonar el repositorio (con comando es mkdir <dirección>)
@@ -84,3 +85,24 @@ Ejemplo de cada una en el archivo APIController.java (back)
 4. - Crear el Controlador de la API (back)
 ======================================================
 En el controlador se añadirán cada una de las llamadas que se pueden realizar a la API (GET/PUT/DELETE)
+
+======================================================
+5. - Crear el Servicio de la API (front)
+======================================================
+La conexión que realiza las llamadas HTTP a la API y gestiona las respuestas
+
+======================================================
+6. - Crear la vista de la api
+======================================================
+Cuenta con 2 partes (vistas o layout, como prefieras), un formulario y un grid.
+
+- El formulario: Los campos de la clase Producto como TextFields y hacer un POST del producto
+- El grid: Hacer un GET de todos los elementos y mostrarlos (debe actualizarse al añadir un producto)
+
+Para utilizar las funcionalidades de la API necesitaremos meterlas en un try/catch (algunas puede que no)
+
+======================================================
+7. - Crear Test Unitarios
+======================================================
+- Uno en el front (comprobar crear un nuevo objeto)
+- Uno en el back (comprobar añadir un objeto al inventario)

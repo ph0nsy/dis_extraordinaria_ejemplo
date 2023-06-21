@@ -52,7 +52,7 @@ public class LectorJSON {
         try {
             //lee el fichero que le pasamos y lo carga en un reader
 
-            BufferedWriter contenido = new BufferedWriter(new FileWriter("./src/main/resources/template.json",false));
+            BufferedWriter contenido = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/back/src/main/resources/template.json",false));
             // convierte el array JSON a un arraylist de Zonas basicas de salud
             List<Producto> listaActualizada = new ArrayList<Producto>(listaProductosActualizada);
 

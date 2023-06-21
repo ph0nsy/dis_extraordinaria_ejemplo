@@ -1,5 +1,6 @@
 package es.ufv.dis.final2022.back;
 
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +37,8 @@ public class APIController {
      * @return Objeto (Producto)
      * @since v0.4
      */
-    @GetMapping("/EncontrarProducto")
-    public Producto obtenerProducto(@RequestBody String producto){
+    @GetMapping("/EncontrarProducto/{producto}")
+    public Producto obtenerProducto(@PathVariable("elemento") String producto){
         for(Producto producto_actual:listaProductos){
             if(producto_actual.getNombre().equals(producto)){
                 return producto_actual;
@@ -52,13 +53,38 @@ public class APIController {
      * @return Respuesta HTTP
      * @since v0.4
      */
-    @PostMapping(path="/AñadirProducto",
+    @PostMapping(path="/addProducto",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Producto>> añadirProducto(@RequestBody Producto producto){
+    public ResponseEntity<Producto> addProducto(@RequestBody Producto producto){
+        System.out.println(new Gson().toJson(producto));
         listaProductos.add(producto);
+        for (Producto p:listaProductos) {
+            if (p == producto){
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }
         lectorJSON.actualizarJson(listaProductos);
         pdf.generarPDF(listaProductos);
-        return new ResponseEntity<>(listaProductos, HttpStatus.CREATED);
+        return new ResponseEntity<>(producto, HttpStatus.CREATED);
+    }
+
+    /**
+     * Eliminar producto a template.json (POST)
+     * @param nombre Producto que añadir
+     * @return Respuesta HTTP
+     * @since v0.4
+     */
+    @DeleteMapping("/BorrarProducto/{elemento}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Producto>> borrarProducto(@PathVariable("elemento") String nombre){
+        for(Producto producto_actual:listaProductos){
+            if(producto_actual.getNombre().equals(nombre)){
+                listaProductos.remove(producto_actual);
+            }
+        }
+        lectorJSON.actualizarJson(listaProductos);
+        pdf.generarPDF(listaProductos);
+        return new ResponseEntity<>(listaProductos, HttpStatus.NO_CONTENT);
     }
 }

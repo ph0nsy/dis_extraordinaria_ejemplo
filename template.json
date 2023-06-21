@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "producto",
+    "categoria": "categoria",
+    "precio": 3,
+    "ean13": "0322500532677"
+  },
+  {
+    "nombre": "4",
+    "categoria": "4",
+    "precio": 4,
+    "ean13": "4"
+  }
+]

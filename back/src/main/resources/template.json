@@ -3,6 +3,66 @@
     "nombre": "producto",
     "categoria": "categoria",
     "precio": 3,
-    "EAN13": "0322500532677"
+    "ean13": "0322500532677"
+  },
+  {
+    "nombre": "4",
+    "categoria": "4",
+    "precio": 4,
+    "ean13": "4"
+  },
+  {
+    "nombre": "5",
+    "categoria": "5",
+    "precio": 5,
+    "ean13": "0"
+  },
+  {
+    "nombre": "2",
+    "categoria": "2",
+    "precio": 2,
+    "ean13": "2"
+  },
+  {
+    "nombre": "2",
+    "categoria": "2",
+    "precio": 2,
+    "ean13": "2"
+  },
+  {
+    "nombre": "1",
+    "categoria": "1",
+    "precio": 1,
+    "ean13": "1"
+  },
+  {
+    "nombre": "1",
+    "categoria": "1",
+    "precio": 1,
+    "ean13": "1"
+  },
+  {
+    "nombre": "1",
+    "categoria": "1",
+    "precio": 1,
+    "ean13": "1"
+  },
+  {
+    "nombre": "1",
+    "categoria": "1",
+    "precio": 1,
+    "ean13": "1"
+  },
+  {
+    "nombre": "1",
+    "categoria": "1",
+    "precio": 1,
+    "ean13": "1"
+  },
+  {
+    "nombre": "A",
+    "categoria": "s",
+    "precio": 2,
+    "ean13": "s"
   }
 ]
