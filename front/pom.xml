@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <!-- Vaadin project from https://github.com/vaadin/skeleton-starter-flow-spring -->
     <groupId>es.ufv.dis.final2022.front</groupId>
-    <artifactId>PONTUARTIFACTID</artifactId>
+    <artifactId>AMG</artifactId>
     <name>FrontEnd</name>
     <description>Parte FrontEnd de la aplicación para el Examen DIS</description>
     <version>1.0-SNAPSHOT</version>

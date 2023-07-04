@@ -5,6 +5,7 @@
 		b. Ó con el correo de la universidad y pidiendo la versión de estudiante
 
 - Opcional y recomendable --> git-flow init (SI VAIS A USAR GITFLOW, si hay dudas: https://docs.google.com/document/d/1S82n2X-WcLKBsMV4SmHaWB5LKchiSrTxsAlZeYcXe1U/edit?usp=sharing)
+			  --> Utilizar Postman o similar para debuggear las funciones del back
 
 - Para copiar el repositorio podemos hacerlo (tenemos que tener las claves SSH):
 	1. Crear la carpeta/directorio donde clonar el repositorio (con comando es mkdir <dirección>)
@@ -18,3 +19,90 @@
 			c.1. Podemos comprobar el cambio con git remote -v
 		d. Pasar el esqueleto inicial al remoto con git push origin main (y develop tmn si lo tenemos)
 
+- Acordarse de cambiar las direcciones de localhost de front y back, en caso de que sea necesario (yo uso server.port=${PORT:xxxx}; donde las xxxx son los dígitos)
+	1. En front>src>resources>application.properties
+	2. En back>src>resources>application.properties
+
+- Asegurarse que el .json del proyecto está en back>src>resources
+
+- Asegurarse de que todas las dependencias a usar esten en los pom.xml (si no siempre podemos introducirlas más tarde)
+
+______________________________________________________________________________________________________________________________________________________________________________________________
+
+PASOS A SEGUIR
+_
+
+Una vez hemos clonado el repositorio de FRAXITO y lo hemos puesto en el nuestro (después de configurar todo), 
+debemos empezar a trabajar en el proyecto.
+
+======================================================
+1. - Objetos del Projecto
+======================================================
+Tenemos que crear, tanto en el front como en el back, los objetos con los que trabajaremos en el proyecto:
+
+ - Tienen que tener el mismo nombre en ambas partes del proyecto
+ - Tienen que tener el mismo contenido en ambas partes (podemos crearlo en un lado y luego copiarlo en otro, permitiendo la refactorización)
+
+En el caso de este examen, necesitamos:
+
+ - Persona.java
+	> Nombre
+	> Categoría
+	> Precio
+	> EAN13
+
+======================================================
+2. - Crear el Lector de Archivos (back)
+======================================================
+Para crear el lector de archivos, debemos crear una función (que podemos almacenar en una clase) que realize lo siguiente:
+
+ - Usar BufferedReader para leer el JSON según su nombre (solo funcionará el código que hay si el archivo está donde debe)
+ - Crear una lista del tipo de objeto a leer
+ - Meter en la lista el contenido del reader y formatearlo con TypeToken al tipo de dato que se necesita (Lista<NombreObjeto>)
+ - Cerrar el reader
+ - Devolver la lista
+
+Debemos meter esto en un try/catch en caso de que no sea capaz de leer el archivo (podemos devolver una lista vacía en ese caso)
+_
+
+Para el guardado/actualizado de archivos, debemos crear una función (que podemos almacenar en la misma clase) que realize:
+
+ - Usar BufferedWriter para guardar el JSON según la dirección donde se debe almacenar
+ - Crear una lista de productos con el listado de productos actualizados a guardar
+ - Usar GsonBuilder() para convertir la lista a un archivo JSON según los 2 puntos anteriores
+ - Cerrar el writer
+
+Debemos meter esto en un try/catch en caso de que no sea capaz de leer el archivo
+
+======================================================
+3. - Crear el Creador de PDFs (back)
+======================================================
+El creador de PDF implementará una función qur generará un pdf en la carpeta especificada
+
+Ejemplo de cada una en el archivo APIController.java (back)
+
+======================================================
+4. - Crear el Controlador de la API (back)
+======================================================
+En el controlador se añadirán cada una de las llamadas que se pueden realizar a la API (GET/PUT/DELETE)
+
+======================================================
+5. - Crear el Servicio de la API (front)
+======================================================
+La conexión que realiza las llamadas HTTP a la API y gestiona las respuestas
+
+======================================================
+6. - Crear la vista de la api
+======================================================
+Cuenta con 2 partes (vistas o layout, como prefieras), un formulario y un grid.
+
+- El formulario: Los campos de la clase Producto como TextFields y hacer un POST del producto
+- El grid: Hacer un GET de todos los elementos y mostrarlos (debe actualizarse al añadir un producto)
+
+Para utilizar las funcionalidades de la API necesitaremos meterlas en un try/catch (algunas puede que no)
+
+======================================================
+7. - Crear Test Unitarios
+======================================================
+- Uno en el front (comprobar crear un nuevo objeto)
+- Uno en el back (comprobar añadir un objeto al inventario)

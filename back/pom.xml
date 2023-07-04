@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.ufv.dis.final2022.back</groupId>
-	<artifactId>CAMBIAME</artifactId>
+	<artifactId>AMG</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>BackEnd</name>
 	<description>Parte BackEnd de la aplicación para el Examen Final DIS</description>
@@ -43,8 +43,13 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.2</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
