@@ -1,5 +1,6 @@
 package es.ufv.dis.final2022.front;
 
+import com.google.gson.Gson;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -8,9 +9,15 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -52,6 +59,7 @@ public class MainView extends VerticalLayout {
     HorizontalLayout secciones = new HorizontalLayout();
     VerticalLayout option1Cont = new VerticalLayout();
     VerticalLayout option2Cont = new VerticalLayout();
+    private final VerticalLayout content;
     /**
      * Clase empleada para la creación de la vista principal de la aplicación.
      */
@@ -65,6 +73,8 @@ public class MainView extends VerticalLayout {
 
         ServiceAPI serviceAPI = new ServiceAPI();
         List<Producto> productos = serviceAPI.getAllProductos();
+        Tab form = new Tab("Formulario");
+        Tab listing = new Tab("Listado");
 
         option2Cont.setJustifyContentMode(JustifyContentMode.CENTER);
         option2Cont.setAlignItems(FlexComponent.Alignment.STRETCH);
@@ -86,34 +96,52 @@ public class MainView extends VerticalLayout {
         TextField nombre_f = new TextField();
         nombre_f.setLabel("Nombre");
         nombre_f.setPrefixComponent(VaadinIcon.USER.create());
-        nombre_f.setRequired(true);
-        nombre_f.setRequiredIndicatorVisible(true);
         nombre_f.setErrorMessage("Campo obligatorio");
         TextField categoria_f = new TextField();
         categoria_f.setLabel("Categoría");
         categoria_f.setPrefixComponent(VaadinIcon.TAG.create());
-        categoria_f.setRequired(true);
-        categoria_f.setRequiredIndicatorVisible(true);
         categoria_f.setErrorMessage("Campo obligatorio");
-        TextField precio_f = new TextField();
+        IntegerField precio_f = new IntegerField();
         precio_f.setLabel("Precio");
         precio_f.setSuffixComponent(new Div(new Text("€")));
         precio_f.setPrefixComponent(VaadinIcon.MONEY.create());
-        precio_f.setRequired(true);
-        precio_f.setRequiredIndicatorVisible(true);
         precio_f.setErrorMessage("Campo obligatorio");
         TextField ean13_f = new TextField();
         ean13_f.setLabel("Código EAN-13");
         ean13_f.setPrefixComponent(VaadinIcon.CODE.create());
-        ean13_f.setRequired(true);
-        ean13_f.setRequiredIndicatorVisible(true);
         ean13_f.setErrorMessage("Campo obligatorio");
         Button send_button = new Button("Enviar", e -> {
             try {
-                Producto new_prod = serviceAPI.putProducto(nombre_f.getValue(),categoria_f.getValue(), Integer.parseInt(precio_f.getValue()), ean13_f.getValue());
-                if (new_prod.getNombre() != null && !new_prod.getNombre().isEmpty()) {
-                    productos.add(new_prod);
-                    grid.getDataProvider().refreshAll();
+                if (nombre_f.getValue() == null || categoria_f.getValue() == null ||  precio_f.getValue() == null ||  ean13_f.getValue() == null){
+                    nombre_f.clear();
+                    categoria_f.clear();
+                    precio_f.clear();
+                    ean13_f.clear();
+                    Notification notification = Notification.show("Producto Inválido");
+                    notification.setPosition(Notification.Position.BOTTOM_START);
+                    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                }
+                else{
+                    Producto new_prod = serviceAPI.putProducto(nombre_f.getValue(),categoria_f.getValue(), precio_f.getValue(), ean13_f.getValue());
+                    if (new_prod != null) {
+                        productos.add(new_prod);
+                        grid.getDataProvider().refreshAll();
+                        nombre_f.clear();
+                        categoria_f.clear();
+                        precio_f.clear();
+                        ean13_f.clear();
+                        Notification notification = Notification.show("Producto Introducido");
+                        notification.setPosition(Notification.Position.BOTTOM_START);
+                        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                    } else {
+                        nombre_f.clear();
+                        categoria_f.clear();
+                        precio_f.clear();
+                        ean13_f.clear();
+                        Notification notification = Notification.show("Producto Repetido o Inválido");
+                        notification.setPosition(Notification.Position.BOTTOM_START);
+                        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                    }
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -127,9 +155,30 @@ public class MainView extends VerticalLayout {
 
         secciones.setJustifyContentMode(JustifyContentMode.EVENLY);
         secciones.setSpacing(true);
-        secciones.add(option1Cont, option2Cont);
+        // secciones.add(option1Cont, option2Cont);
 
         this.setAlignItems(FlexComponent.Alignment.STRETCH);
-        add(secciones);
+
+        Tabs tabs = new Tabs(form, listing);
+
+        content = new VerticalLayout();
+        content.setSpacing(false);
+        content.add(option1Cont);
+
+        tabs.addSelectedChangeListener(event ->
+                {
+
+                content.removeAll();
+
+                if (event.getSelectedTab().equals(listing)) {
+                    content.add(option2Cont);
+                } else {
+                    content.add(option1Cont);
+                }
+            });
+        tabs.addThemeVariants(TabsVariant.LUMO_CENTERED);
+        // add(secciones);
+        add(tabs, content);
+
     }
 }

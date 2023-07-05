@@ -27,9 +27,7 @@ public class APIController {
      * @since v0.4
      */
     @GetMapping("/ObtenerProductos")
-    public List<Producto> obtenerTodosProductos(){
-        return lectorJSON.leerJsonProductos();
-    }
+    public List<Producto> obtenerTodosProductos(){ return lectorJSON.leerJsonProductos(); }
 
     /**
      * Encontrar un Producto en particular de template.json (GET)
@@ -57,13 +55,13 @@ public class APIController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Producto> addProducto(@RequestBody Producto producto){
-        System.out.println(new Gson().toJson(producto));
-        listaProductos.add(producto);
+        listaProductos = lectorJSON.leerJsonProductos();
         for (Producto p:listaProductos) {
-            if (p == producto){
+            if (p.getNombre().equals(producto.getNombre())){
                 return new ResponseEntity<>(null, HttpStatus.CREATED);
             }
         }
+        listaProductos.add(producto);
         lectorJSON.actualizarJson(listaProductos);
         pdf.generarPDF(listaProductos);
         return new ResponseEntity<>(producto, HttpStatus.CREATED);

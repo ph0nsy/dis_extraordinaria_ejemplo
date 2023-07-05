@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,8 +25,7 @@ public class LectorJSON {
 
         try {
             //Lee el fichero que le pasamos y lo carga en un reader
-            BufferedReader reader = new BufferedReader(new
-                    InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("template.json"))));
+            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/back/src/main/resources/template.json"));
             // Convierte el array JSON a un arraylist de Productos
             List<Producto> productos =
                     new Gson().fromJson(reader, new TypeToken<List<Producto>>()
